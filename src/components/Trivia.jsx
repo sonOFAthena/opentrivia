@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-const Trivia = ({ data, setStop, questionNumber, setQuestionNumber, trivia }) => {
+const Trivia = ({ setStop, questionNumber, setQuestionNumber, trivia }) => {
   //current question
   const [question, setQuestion] = useState(null);
 
@@ -31,7 +31,7 @@ const Trivia = ({ data, setStop, questionNumber, setQuestionNumber, trivia }) =>
       setClassName( a === question?.correct_answer ? "answer correct" : "answer wrong")
     );
 
-    delay(6000, () => 
+    delay(5000, () => 
       {
         if(a === question?.correct_answer){
           setQuestionNumber((prev) => prev + 1 );

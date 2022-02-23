@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { trivia_categories, trivia_difficulties } from "../data/Data";
 import useSelect from "../hooks/useSelect";
 
@@ -29,7 +30,7 @@ const Start = ( {setUserName, setCategory, setDifficulty}) => {
         <Form.Group>
           <SelectDifficulty />
         </Form.Group>
-        <button className="startButton">Start</button>
+          <button className="startButton">Start</button>
     </Form>
   )
 }
