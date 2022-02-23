@@ -3,13 +3,17 @@ import "./App.css";
 import Timer from "./components/Timer";
 import Trivia from "./components/Trivia";
 import Start from "./components/Start";
+import { QUANTITY, URLBASE } from "./utils/apis";
 
 function App() {
   
   const [userName, setUserName] = useState(null);
+  const [category, setCategory] = useState(null);
+  const [difficulty, setDifficulty] = useState(null);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [stop, setStop] = useState(false);
   const [earned, setEarned] = useState("$ 0");
+  const [trivia, setTrivia] = useState([]);
 
   const data = [
   {
@@ -106,10 +110,30 @@ function App() {
   }, [moneyPyramid, questionNumber])
   
 
+  useEffect(() => {
+    const searchTrivia = async () =>{
+      const url = `${URLBASE}?amount=${QUANTITY}&category=${category}&difficulty=${difficulty}&type=multiple`;
+
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(userName);
+      console.log(category);
+      console.log(difficulty);
+      console.log(data);
+      setTrivia(data.results);
+    };
+    
+    searchTrivia();
+
+  }, [category,difficulty])
+
+
+
   return (
     <div className="app">
       {userName ? (
         <>
+        {console.log(trivia)}
           <div className="main">
             {stop ? (
               <h1 className="endText">You earned: {earned} </h1>
@@ -126,6 +150,7 @@ function App() {
                     setStop={setStop}
                     questionNumber={questionNumber}
                     setQuestionNumber={setQuestionNumber}
+                    trivia={trivia}
                   />
                 </div>
               </>
@@ -149,7 +174,7 @@ function App() {
           </div>
         </>
       ) : (
-        <Start setUserName={setUserName} />
+        <Start setUserName={setUserName} setCategory={setCategory} setDifficulty={setDifficulty} />
       )}
     </div>
   );
